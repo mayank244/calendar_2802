@@ -1,0 +1,51 @@
+<html>
+    <head>
+       <div class=" row header text-center">
+           <div class="col-sm-2 chev">  
+               <span class="glyphicon glyphicon-chevron-left" ng-click="previous()"></span>
+           </div>
+           <div class="col-sm-8">   {{month.format("MMMM YYYY")}}<hr width="50%"></div>
+           <div class="col-sm-2 chev"><span class="glyphicon glyphicon-chevron-right" ng-click="next()"></i></div>
+        </div>
+        <div class="week names">
+            <span class="day">Sun</span>
+            <span class="day">Mon</span>
+            <span class="day">Tue</span>
+            <span class="day">Wed</span>
+            <span class="day">Thu</span>
+            <span class="day">Fri</span>
+            <span class="day">Sat</span>
+        </div>
+        <div ng-controller="eventController" class="eventclass">
+        <div class="week" ng-repeat="week in weeks">
+            <span class="day" ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }" ng-click="select(day)" ng-repeat="day in week.days">{{day.number}}
+                {{eventArray}}
+                <button ng-if="day.isCurrentMonth" ng-click="eventAddvalue(day.number,month.format('MMMM YYYY'))" class="add-event"  data-toggle="modal" data-target="#addEvent">+</button>
+                 <div id="addEvent" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h2 class="modal-title">ADD EVENT</h2>
+                        </div>
+                        <div class="modal-body">
+                            {{expr}}
+                            <br><br><br>
+                            <form>
+                                <input type="text" class="event-add-input" ng-model="event.event_name" placeholder="EVENT"><br><br>
+                                 <input type="text" class="event-add-input" ng-model="event.event_descr" placeholder="DETAILS"><br><br>
+                                 <input type="number" ng-model="event.event_stime" class="event-add-input timer"  placeholder="time">
+                                 <br><br><br>
+                                 <input type="submit" ng-click="setEvent(event.event_name,event.event_descr,event.event_stime)" 
+                                        class="event-add-btn" value="SAVE">
+                           </form><br><br><br>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+            </span>
+        </div>
+        </div>
+    </head>
+</html>
